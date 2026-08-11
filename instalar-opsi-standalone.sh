@@ -420,7 +420,7 @@ services:
     ports:
       - "${PORTA_HTTPS}:4447"
       - "${PORTA_TFTP}:69/udp"
-      - "${PORTA_SMB}:445"
+      # porta 445 (Samba) desabilitada — use WebDAV para depot
     volumes:
       - opsi-data:/var/lib/opsi
       - opsi-config:/etc/opsi
