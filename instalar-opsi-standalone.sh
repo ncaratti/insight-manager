@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # ============================================================
 #  OPSI Server — Instalador Automático para Linux
-#  Versão: 1.2  |  Hepta Tecnologia e Informática Ltda.
+#  Versão: 1.2  |  Insight Manager
 #
 #  Sistemas suportados:
 #    Ubuntu 20.04, 22.04, 24.04, 26.04
@@ -69,7 +69,7 @@ cat << BANNER
   ║                                                   ║
   ║   OPSI Server ${VERSAO_OPSI} — Instalador Linux          ║
   ║   Versão do script: ${VERSAO_SCRIPT}                      ║
-  ║   Hepta Tecnologia e Informática Ltda.            ║
+  ║   Insight Manager            ║
   ║                                                   ║
   ╠═══════════════════════════════════════════════════╣
   ║  O que será instalado:                            ║
@@ -329,7 +329,7 @@ ENV
 
   # docker-compose.yml
   cat > "${DIR_INSTALACAO}/docker-compose.yml" << COMPOSE
-# OPSI Server ${VERSAO_OPSI} — Hepta Tecnologia
+# OPSI Server ${VERSAO_OPSI} — Insight Manager
 # Gerado em: $(date)
 
 x-restart: &sempre
