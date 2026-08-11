@@ -223,10 +223,8 @@ verificar_portas() {
   fi
 
   if $conflito; then
-    echo ""
-    warn "Há conflitos de porta. O OPSI pode não funcionar corretamente."
-    read -rp "  Deseja continuar mesmo assim? [s/N]: " resp
-    [[ "${resp,,}" != "s" ]] && erro "Instalação cancelada pelo usuário."
+    warn "Conflito na porta 445 (provavelmente Samba do sistema). Continuando instalacao..."
+    warn "O OPSI usara porta 445 no container — verifique apos a instalacao."
   fi
 }
 
