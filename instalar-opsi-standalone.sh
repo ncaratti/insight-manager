@@ -341,7 +341,7 @@ criar_compose() {
   titulo "Etapa 6/9 — Criando configuração Docker Compose"
 
   cat > "${DIR_INSTALACAO}/docker-compose.yml" << COMPOSE
-version: "3.8"
+# compose-spec (sem version obsoleto)
 
 # ============================================================
 #  OPSI Server ${VERSAO_OPSI} — Hepta Tecnologia
@@ -355,7 +355,7 @@ services:
 
   # ── Banco de dados ────────────────────────────────────────
   mysql:
-    image: mysql:8.0
+    image: mariadb:10.11
     <<: *sempre
     environment:
       MYSQL_ROOT_PASSWORD: \${MYSQL_ROOT_PASSWORD}
@@ -366,7 +366,7 @@ services:
       - mysql-data:/var/lib/mysql
     networks: [opsi-net]
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p\${MYSQL_ROOT_PASSWORD}"]
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
       interval: 10s
       timeout: 5s
       retries: 12
@@ -401,7 +401,7 @@ services:
 
   # ── OPSI Config Server ────────────────────────────────────
   opsiconfd:
-    image: opsiproducts/opsi-server:latest
+    image: uibmz/opsi-server:4.3
     <<: *sempre
     hostname: \${OPSI_HOSTNAME}
     domainname: \${OPSI_DOMAIN}
