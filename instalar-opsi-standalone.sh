@@ -87,8 +87,15 @@ BANNER
 #  Utilitários
 # ──────────────────────────────────────────────
 gerar_senha() {
-  # 20 caracteres: letras + números + símbolos seguros
-  tr -dc 'A-Za-z0-9@#%^&*' </dev/urandom 2>/dev/null | head -c 20
+  # 20 caracteres: letras + numeros, compativel com aarch64/arm64
+  local senha=""
+  local chars="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+  local len=${#chars}
+  for i in $(seq 1 20); do
+    local idx=$(( RANDOM % len ))
+    senha="${senha}${chars:$idx:1}"
+  done
+  echo "$senha"
 }
 
 porta_em_uso() {
@@ -96,9 +103,15 @@ porta_em_uso() {
 }
 
 detectar_ip_local() {
-  ip route get 8.8.8.8 2>/dev/null | awk '{print $7; exit}' \
-    || hostname -I 2>/dev/null | awk '{print $1}' \
-    || echo "127.0.0.1"
+  local ip=""
+  ip=$(ip route get 8.8.8.8 2>/dev/null | awk '{for(i=1;i<=NF;i++) if($i=="src") print $(i+1)}') || true
+  if [ -z "$ip" ]; then
+    ip=$(hostname -I 2>/dev/null | awk '{print $1}') || true
+  fi
+  if [ -z "$ip" ]; then
+    ip="127.0.0.1"
+  fi
+  echo "$ip"
 }
 
 aguardar_opsi() {
@@ -283,7 +296,7 @@ gerar_credenciais() {
   GRAFANA_PASS=$(gerar_senha)
   SERVER_IP=$(detectar_ip_local)
   SERVER_HOSTNAME=$(hostname -s)
-  SERVER_DOMAIN=$(hostname -d 2>/dev/null || dnsdomainname 2>/dev/null || echo "local")
+  SERVER_DOMAIN=$(hostname -d 2>/dev/null || echo "local") || SERVER_DOMAIN="local"
 
   log "IP detectado:   ${SERVER_IP}"
   log "Hostname:       ${SERVER_HOSTNAME}"
