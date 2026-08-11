@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # ============================================================
 #  OPSI Server — Instalador Automático para Linux
-#  Versão: 1.0  |  Hepta Tecnologia e Informática Ltda.
+#  Versão: 1.0  |  Insight Manager
 #
 #  Sistemas suportados:
 #    Ubuntu 20.04, 22.04, 24.04
@@ -68,14 +68,14 @@ cat << BANNER
 
   ╔═══════════════════════════════════════════════════╗
   ║                                                   ║
-  ║   OPSI Server ${VERSAO_OPSI} — Instalador Linux          ║
-  ║   Versão do script: ${VERSAO_SCRIPT}                      ║
-  ║   Hepta Tecnologia e Informática Ltda.            ║
+  ║   OPSI Server ${VERSAO_OPSI} — Instalador         ║
+  ║   Versão do script: ${VERSAO_SCRIPT}              ║
+  ║   Insight Manager                                 ║
   ║                                                   ║
   ╠═══════════════════════════════════════════════════╣
   ║  O que será instalado:                            ║
   ║  • Docker Engine + Docker Compose                 ║
-  ║  • OPSI ${VERSAO_OPSI} (config server)                   ║
+  ║  • OPSI ${VERSAO_OPSI} (config server)            ║
   ║  • MySQL 8.0 + Redis 7 + Grafana                  ║
   ║  • Serviço systemd + helper CLI                   ║
   ╚═══════════════════════════════════════════════════╝
@@ -344,7 +344,7 @@ criar_compose() {
 # compose-spec (sem version obsoleto)
 
 # ============================================================
-#  OPSI Server ${VERSAO_OPSI} — Hepta Tecnologia
+#  OPSI Server ${VERSAO_OPSI} — Insight Manager
 #  Gerado em: $(date)
 # ============================================================
 
@@ -523,7 +523,7 @@ instalar_helper() {
 #!/usr/bin/env bash
 # ─────────────────────────────────────────────
 #  opsi-server — Helper CLI do OPSI
-#  Hepta Tecnologia e Informática Ltda.
+#  Insight Manager
 # ─────────────────────────────────────────────
 DIR="/opt/opsi-server"
 CREDS="${DIR}/.credentials"
