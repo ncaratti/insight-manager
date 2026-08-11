@@ -119,12 +119,12 @@ aguardar_opsi() {
 #  ETAPA 0 — Inicialização
 # ──────────────────────────────────────────────
 init() {
-  mkdir -p "$(dirname "$LOG")"
-  touch "$LOG"
-  mostrar_banner | tee -a "$LOG"
+  mkdir -p "$(dirname "$LOG")" || true
+  touch "$LOG" || true
+  mostrar_banner | tee -a "$LOG" || true
   log "Script iniciado. Log em: ${LOG}"
 
-  [[ $EUID -ne 0 ]] && erro "Execute como root: sudo $0"
+  if [ "$(id -u)" -ne 0 ]; then echo "ERRO: Execute como root: sudo $0"; exit 1; fi
 }
 
 # ──────────────────────────────────────────────
