@@ -24,7 +24,7 @@ $OPSI_PORT        = "4447"
 $OPSI_USER        = "adminuser"
 $OPSI_PASSWORD    = "LjqvGdHR7cZUpokOkAUt"
 $OPSI_SERVICE_URL = "https://${OPSI_SERVER_IP}:${OPSI_PORT}"
-$OPSI_DEPOT_PATH  = "\\${OPSI_SERVER_IP}\opsi_depot\opsi-client-agent"
+$OPSI_DEPOT_PATH  = "\\${OPSI_SERVER_IP}@4445\opsi_depot\opsi-client-agent"
 $TEMP_DIR         = "C:\opsi-install-temp"
 
 # ── Cores para output ────────────────────────────────────────
@@ -84,10 +84,10 @@ if (-not $ping) {
 Write-Info "Acessando depot OPSI em ${OPSI_DEPOT_PATH}..."
 
 # Remover mapeamento anterior se existir
-net use "\\${OPSI_SERVER_IP}\opsi_depot" /delete /y 2>$null | Out-Null
+net use "\\${OPSI_SERVER_IP}@4445\opsi_depot" /delete /y 2>$null | Out-Null
 
 # Mapear com credenciais
-$netUseResult = net use "\\${OPSI_SERVER_IP}\opsi_depot" /user:$OPSI_USER $OPSI_PASSWORD 2>&1
+$netUseResult = net use "\\${OPSI_SERVER_IP}@4445\opsi_depot" /user:$OPSI_USER $OPSI_PASSWORD 2>&1
 if ($LASTEXITCODE -ne 0) {
     Write-Warn "Não foi possível mapear via net use. Tentando acesso direto..."
 }
@@ -198,7 +198,7 @@ if ($service) {
 Write-Info "Finalizando..."
 
 # Desconectar mapeamento de rede
-net use "\\${OPSI_SERVER_IP}\opsi_depot" /delete /y 2>$null | Out-Null
+net use "\\${OPSI_SERVER_IP}@4445\opsi_depot" /delete /y 2>$null | Out-Null
 
 # Reabilitar firewall
 Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled True -ErrorAction SilentlyContinue
